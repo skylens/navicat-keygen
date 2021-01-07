@@ -24,10 +24,12 @@ jobs:
     - name: Install Library
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: |
+        vcpkg update
         vcpkg install capstone[x86]:x64-windows-static
         vcpkg install keystone:x64-windows-static
         vcpkg install openssl-windows:x64-windows-static
         vcpkg install rapidjson:x64-windows-static
+        vcpkg update
         vcpkg integrate install
 
     - name: Build
