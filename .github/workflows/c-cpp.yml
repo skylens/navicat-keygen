@@ -1,0 +1,30 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ mac ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install Library
+      run: | 
+      sudo apt-get install libcapstone-dev rapidjson-dev -y
+    -name: build 
+      run: | 
+      git clone https://github.com/keystone-engine/keystone.git
+      cd keystone
+      mkdir build
+      cd build
+      ../make-share.sh
+      sudo make install
+      sudo ldconfig
+      cd ../../
+      git clone -b linux --single-branch https://github.com/HeQuanX/navicat-keygen-tools.git
+      cd navicat-keygen-tools
+      make all
+      ls -al bin/
